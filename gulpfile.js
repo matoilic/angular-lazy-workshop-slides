@@ -3,6 +3,7 @@ var sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
 var notify = require('gulp-notify');
 var sync = require('gulp-sync')(gulp);
+var connect = require('gulp-connect');
 var fs = require('fs');
 var path = require('path');
 var compile = require('./lib/gulp-compiler');
@@ -38,6 +39,7 @@ gulp.task('compile-stylesheets', function() {
 gulp.task('notify-recompiled', function() {
     return gulp
         .src(paths.docs)
+        .pipe(connect.reload())
         .pipe(notify('recompiled changed files'));
 });
 
@@ -46,4 +48,12 @@ gulp.task('watch', function() {
     gulp.watch(paths.docs, sync.sync(['compile', 'notify-recompiled']));
 });
 
-gulp.task('default', ['compile', 'compile-stylesheets', 'watch']);
+gulp.task('connect', function() {
+    connect.server({
+        root: '.',
+        livereload: true,
+        port: 8088
+    });
+});
+
+gulp.task('default', ['compile', 'compile-stylesheets', 'connect', 'watch']);
