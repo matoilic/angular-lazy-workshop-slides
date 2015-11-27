@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Lazy Angular</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link href='//fonts.googleapis.com/css?family=Roboto:300,700,400,100' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="/node_modules/reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="stylesheets/main.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '/node_modules/reveal.js/css/print/pdf.css' : '/node_modules/reveal.js/css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild( link );
+    </script>
+</head>
+<body>
+
+<div class="reveal">
+
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+        <section>
+            {{codeblock 'example.js' true}}
+        </section>
+    </div>
+</div>
+
+<script src="/node_modules/reveal.js/lib/js/head.min.js"></script>
+<script src="/node_modules/reveal.js/js/reveal.js"></script>
+
+<script>
+
+    // Full list of configuration options available at:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+            { src: '/node_modules/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+            { src: '/node_modules/reveal.js/plugin/zoom-js/zoom.js', async: true },
+            { src: '/node_modules/reveal.js/plugin/notes/notes.js', async: true }
+        ]
+    });
+
+    document.addEventListener('click', function(event) {
+        var run = event.target.getAttribute('data-run');
+
+        if(run && window[run]) {
+            window[run].call(null);
+        }
+    });
+</script>
+
+</body>
+</html>

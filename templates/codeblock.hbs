@@ -1,0 +1,11 @@
+<div class="codeblock">
+    <pre class="language-markup">{{highlight code}}</pre>
+    {{#if runnable}}
+        <script>
+            function {{functionName}}() {
+                {{{code}}}
+            }
+        </script>
+        <button class="codeblock-run" data-run="{{functionName}}">Run</button>
+    {{/if}}
+</div>
