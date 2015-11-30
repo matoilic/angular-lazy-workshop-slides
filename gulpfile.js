@@ -4,18 +4,29 @@ var sourcemaps = require('gulp-sourcemaps');
 var notify = require('gulp-notify');
 var sync = require('gulp-sync')(gulp);
 var connect = require('gulp-connect');
+var cached = require('gulp-cached');
 var fs = require('fs');
 var path = require('path');
 var compile = require('./lib/gulp-compiler');
 
 var paths = {
-    docs: 'src/**/*.hbs',
-    stylesheets: 'src/**/*.scss'
+    slides: 'src/slides/**/*.hbs',
+    stylesheets: 'src/**/*.scss',
+    examples: 'code/**/*',
+    presentation: 'src/index.hbs'
 };
 
-gulp.task('compile', function() {
+gulp.task('compile-slides', function() {
     return gulp
-        .src(paths.docs)
+        .src(paths.slides)
+        //.pipe(cached('docs'))
+        .pipe(compile())
+        .pipe(gulp.dest('build/slides'));
+});
+
+gulp.task('compile-presentation', function() {
+    return gulp
+        .src(paths.presentation)
         .pipe(compile())
         .pipe(gulp.dest('build'));
 });
@@ -38,14 +49,16 @@ gulp.task('compile-stylesheets', function() {
 
 gulp.task('notify-recompiled', function() {
     return gulp
-        .src(paths.docs)
+        .src(paths.presentation)
         .pipe(connect.reload())
         .pipe(notify('recompiled changed files'));
 });
 
 gulp.task('watch', function() {
     gulp.watch(paths.stylesheets, sync.sync(['compile-stylesheets', 'notify-recompiled']));
-    gulp.watch(paths.docs, sync.sync(['compile', 'notify-recompiled']));
+    gulp.watch(paths.slides, sync.sync(['compile', 'notify-recompiled']));
+    gulp.watch(paths.examples, sync.sync(['compile', 'notify-recompiled']));
+    gulp.watch(paths.presentation, sync.sync(['compile-presentation', 'notify-recompiled']));
 });
 
 gulp.task('connect', function() {
@@ -55,5 +68,7 @@ gulp.task('connect', function() {
         port: 8088
     });
 });
+
+gulp.task('compile', sync.sync(['compile-slides', 'compile-presentation']));
 
 gulp.task('default', ['compile', 'compile-stylesheets', 'connect', 'watch']);
