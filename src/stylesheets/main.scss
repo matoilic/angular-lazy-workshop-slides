@@ -42,8 +42,10 @@ button {
   }
 
   .backgrounds {
-    background: url("/images/logo.png") bottom 24px left 24px no-repeat;
-    background-size: 120px auto;
+    @media all and (min-height: 513px) {
+      background: url("/images/logo.png") bottom 24px left 24px no-repeat;
+      background-size: 120px auto;
+    }
   }
 
   .backgrounds .slide-background {
@@ -137,6 +139,12 @@ html.hands-on body {
 
     code {
       background: #a5d7d9;
+    }
+
+    .backgrounds {
+      @media all and (min-height: 513px) {
+        background-image: url("/images/logo_white.png");
+      }
     }
   }
 }
