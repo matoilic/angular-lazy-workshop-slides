@@ -5,6 +5,7 @@ const notify = require('gulp-notify');
 const sync = require('gulp-sync')(gulp);
 const connect = require('gulp-connect');
 const plumber = require('gulp-plumber');
+const clean = require('gulp-clean');
 const fs = require('fs');
 const path = require('path');
 const compile = require('./lib/gulp-compiler');
@@ -49,6 +50,12 @@ gulp.task('compile-stylesheets', function() {
         .pipe(gulp.dest('build'));
 });
 
+gulp.task('clean', function() {
+    return gulp
+        .src('build')
+        .pipe(clean());
+});
+
 gulp.task('notify-recompiled', function() {
     return gulp
         .src(paths.presentation)
@@ -72,6 +79,8 @@ gulp.task('connect', function() {
     });
 });
 
-gulp.task('compile', sync.sync(['compile-slides', 'compile-presentation']));
+gulp.task('compile', sync.sync(['compile-slides', 'compile-presentation', 'compile-stylesheets']));
 
-gulp.task('default', ['compile', 'compile-stylesheets', 'connect', 'watch']);
+gulp.task('recompile', sync.sync(['clean', 'compile']));
+
+gulp.task('default', ['recompile', 'compile-stylesheets', 'connect', 'watch']);

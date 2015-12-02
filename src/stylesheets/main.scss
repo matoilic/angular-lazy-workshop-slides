@@ -41,6 +41,11 @@ button {
     }
   }
 
+  .backgrounds {
+    background: url("/images/logo.png") bottom 24px left 24px no-repeat;
+    background-size: 120px auto;
+  }
+
   .backgrounds .slide-background {
     height: 100vh;
     width: 100vw;
@@ -70,7 +75,7 @@ button {
   }
 
   .slide-background.title-slide {
-    background: url(/images/bg3.jpg) center no-repeat;
+    background: url("/images/bg3.jpg") center no-repeat;
     background-size: cover;
   }
 
@@ -83,7 +88,7 @@ button {
     font-size: .6em;
     width: 100%;
 
-    background: url(/images/logo_white.png) right 1.2em no-repeat;
+    background: url("/images/logo_white.png") right 1.2em no-repeat;
     background-size: auto 60%;
 
     p {
