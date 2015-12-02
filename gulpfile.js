@@ -1,15 +1,15 @@
-var gulp = require('gulp');
-var sass = require('gulp-sass');
-var sourcemaps = require('gulp-sourcemaps');
-var notify = require('gulp-notify');
-var sync = require('gulp-sync')(gulp);
-var connect = require('gulp-connect');
-var cached = require('gulp-cached');
-var fs = require('fs');
-var path = require('path');
-var compile = require('./lib/gulp-compiler');
+const gulp = require('gulp');
+const sass = require('gulp-sass');
+const sourcemaps = require('gulp-sourcemaps');
+const notify = require('gulp-notify');
+const sync = require('gulp-sync')(gulp);
+const connect = require('gulp-connect');
+const plumber = require('gulp-plumber');
+const fs = require('fs');
+const path = require('path');
+const compile = require('./lib/gulp-compiler');
 
-var paths = {
+const paths = {
     slides: 'src/slides/**/*.hbs',
     stylesheets: 'src/**/*.scss',
     examples: 'code/**/*',
@@ -19,7 +19,7 @@ var paths = {
 gulp.task('compile-slides', function() {
     return gulp
         .src(paths.slides)
-        //.pipe(cached('docs'))
+        .pipe(plumber())
         .pipe(compile())
         .pipe(gulp.dest('build/slides'));
 });
@@ -27,6 +27,7 @@ gulp.task('compile-slides', function() {
 gulp.task('compile-presentation', function() {
     return gulp
         .src(paths.presentation)
+        .pipe(plumber())
         .pipe(compile())
         .pipe(gulp.dest('build'));
 });
@@ -34,6 +35,7 @@ gulp.task('compile-presentation', function() {
 gulp.task('compile-stylesheets', function() {
     return gulp
         .src(paths.stylesheets)
+        .pipe(plumber())
         .pipe(sourcemaps.init())
         .pipe(sass({
             outputStyle: 'expanded',
@@ -50,6 +52,7 @@ gulp.task('compile-stylesheets', function() {
 gulp.task('notify-recompiled', function() {
     return gulp
         .src(paths.presentation)
+        .pipe(plumber())
         .pipe(connect.reload())
         .pipe(notify('recompiled changed files'));
 });

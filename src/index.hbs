@@ -51,14 +51,14 @@
 
         // Optional reveal.js plugins
         dependencies: [
-            { src: '/node_modules/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+            { src: '/node_modules/reveal.js/lib/js/classList.js', condition: () => !document.body.classList } ,
             { src: '/node_modules/reveal.js/plugin/zoom-js/zoom.js', async: true },
-            { src: '/node_modules/reveal.js/plugin/notes/notes.js', async: true },
+            { src: '/node_modules/reveal.js/plugin/notes/notes.js', async: true }
         ]
     });
 
-    document.addEventListener('click', function(event) {
-        var run = event.target.getAttribute('data-run');
+    document.addEventListener('click', (event) => {
+        var run = event.target.dataset['run'];
 
         if(run && window[run]) {
             window[run].call(null);

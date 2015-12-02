@@ -1,5 +1,6 @@
 System.config({
     paths: {
+        "*": "build/*",
         "github:*": "jspm_packages/github/*"
     },
     map: {
