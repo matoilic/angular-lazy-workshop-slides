@@ -42,7 +42,7 @@ button {
   }
 
   .backgrounds {
-    @media all and (min-height: 513px) {
+    @media screen and (min-height: 513px) {
       background: url("/images/logo.png") bottom 24px left 24px no-repeat;
       background-size: 120px auto;
     }
@@ -77,6 +77,7 @@ button {
   }
 
   .slide-background.title-slide {
+
     background: url("/images/bg3.jpg") center no-repeat;
     background-size: cover;
   }
@@ -110,6 +111,14 @@ button {
       padding: 0;
       float: left;
     }
+
+    @media print {
+      background: url("/images/logo.png") right bottom no-repeat;
+      background-size: auto 60%;
+      bottom: 0;
+      color: black;
+      font-size: .6em !important;
+    }
   }
 }
 
@@ -123,28 +132,4 @@ button {
   }
 }
 
-html.hands-on body {
-  background-color: $color-mint;
-  color: white;
-
-  .reveal {
-    color: white;
-
-    h1,
-    h2,
-    h3,
-    p {
-      color: white;
-    }
-
-    code {
-      background: #a5d7d9;
-    }
-
-    .backgrounds {
-      @media all and (min-height: 513px) {
-        background-image: url("/images/logo_white.png");
-      }
-    }
-  }
-}
+@import "print";

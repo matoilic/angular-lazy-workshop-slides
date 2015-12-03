@@ -6,6 +6,7 @@ const sync = require('gulp-sync')(gulp);
 const connect = require('gulp-connect');
 const plumber = require('gulp-plumber');
 const clean = require('gulp-clean');
+const autoprefixer = require('gulp-autoprefixer');
 const fs = require('fs');
 const path = require('path');
 const compile = require('./lib/gulp-compiler');
@@ -44,6 +45,7 @@ gulp.task('compile-stylesheets', function() {
                 path.resolve('node_modules')
             ]
         }))
+        .pipe(autoprefixer())
         .pipe(sourcemaps.write('.', {
             sourceRoot: '/source'
         }))

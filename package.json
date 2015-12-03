@@ -4,7 +4,7 @@
   "description": "",
   "private": "true",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "gulp"
   },
   "author": "",
   "license": "ISC",
@@ -12,6 +12,7 @@
     "faker": "^3.0.1",
     "glob": "6.0.1",
     "gulp": "^3.9.0",
+    "gulp-autoprefixer": "3.1.0",
     "gulp-clean": "0.3.1",
     "gulp-connect": "2.2.0",
     "gulp-notify": "^2.2.0",
@@ -28,8 +29,5 @@
   "engines": {
     "node": ">=4.2",
     "npm": ">=3.3"
-  },
-  "scripts": {
-    "start": "gulp"
   }
 }
