@@ -18,7 +18,7 @@ const paths = {
     presentation: 'src/index.hbs'
 };
 
-gulp.task('compile-slides', function() {
+gulp.task('compile-slides', function () {
     return gulp
         .src(paths.slides)
         .pipe(plumber())
@@ -26,7 +26,7 @@ gulp.task('compile-slides', function() {
         .pipe(gulp.dest('build/slides'));
 });
 
-gulp.task('compile-presentation', function() {
+gulp.task('compile-presentation', function () {
     return gulp
         .src(paths.presentation)
         .pipe(plumber())
@@ -34,7 +34,7 @@ gulp.task('compile-presentation', function() {
         .pipe(gulp.dest('build'));
 });
 
-gulp.task('compile-stylesheets', function() {
+gulp.task('compile-stylesheets', function () {
     return gulp
         .src(paths.stylesheets)
         .pipe(plumber())
@@ -52,13 +52,13 @@ gulp.task('compile-stylesheets', function() {
         .pipe(gulp.dest('build'));
 });
 
-gulp.task('clean', function() {
+gulp.task('clean', function () {
     return gulp
         .src('build')
         .pipe(clean());
 });
 
-gulp.task('notify-recompiled', function() {
+gulp.task('notify-recompiled', function () {
     return gulp
         .src(paths.presentation)
         .pipe(plumber())
@@ -66,18 +66,18 @@ gulp.task('notify-recompiled', function() {
         .pipe(notify('recompiled changed files'));
 });
 
-gulp.task('watch', function() {
+gulp.task('watch', function () {
     gulp.watch(paths.stylesheets, sync.sync(['compile-stylesheets', 'notify-recompiled']));
     gulp.watch(paths.slides, sync.sync(['compile', 'notify-recompiled']));
     gulp.watch(paths.examples, sync.sync(['compile', 'notify-recompiled']));
     gulp.watch(paths.presentation, sync.sync(['compile-presentation', 'notify-recompiled']));
 });
 
-gulp.task('connect', function() {
+gulp.task('connect', function () {
     connect.server({
         root: '.',
         livereload: true,
-        port: 8088
+        port: 9099
     });
 });
 

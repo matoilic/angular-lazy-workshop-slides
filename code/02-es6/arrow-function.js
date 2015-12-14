@@ -1,4 +1,4 @@
-element.addEventListener('click', function() {
+element.addEventListener('click', function () {
     // this === element
 });
 
