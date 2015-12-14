@@ -3,6 +3,36 @@
 
 $color-mint: rgb(20,173, 170);
 
+html.hands-on body {
+  background-color: $color-mint;
+  color: white;
+
+  .reveal {
+    color: white;
+
+    h1,
+    h2,
+    h3,
+    p {
+      color: white;
+    }
+
+    a {
+      color: #025;
+    }
+  }
+
+  code {
+    background: darken($color-mint, 10%);
+  }
+
+  .backgrounds {
+    @media screen and (min-height: 513px) {
+      background-image: url("/images/logo_white.png");
+    }
+  }
+}
+
 button {
   background: #004d9f;
   border: 0;
@@ -41,6 +71,10 @@ button {
     }
   }
 
+  a {
+    color: #004d9f;
+  }
+
   .backgrounds {
     @media screen and (min-height: 513px) {
       background: url("/images/logo.png") bottom 24px left 24px no-repeat;
@@ -77,7 +111,6 @@ button {
   }
 
   .slide-background.title-slide {
-
     background: url("/images/bg3.jpg") center no-repeat;
     background-size: cover;
   }
