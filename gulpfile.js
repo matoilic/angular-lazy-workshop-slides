@@ -10,6 +10,7 @@ const autoprefixer = require('gulp-autoprefixer');
 const fs = require('fs');
 const path = require('path');
 const compile = require('./lib/gulp-compiler');
+const os = require('os');
 
 const paths = {
     slides: 'src/slides/**/*.hbs',
@@ -18,20 +19,35 @@ const paths = {
     presentation: 'src/index.hbs'
 };
 
+const variables = {
+    localAddress: os.networkInterfaces()['en3'][1].address,
+    alternativeLocalAddress: os.networkInterfaces()['en0'][1].address
+};
+
 gulp.task('compile-slides', function () {
     return gulp
         .src(paths.slides)
         .pipe(plumber())
-        .pipe(compile())
+        .pipe(compile(variables))
         .pipe(gulp.dest('build/slides'));
 });
 
-gulp.task('compile-presentation', function () {
+gulp.task('compile-client-presentation', function () {
     return gulp
         .src(paths.presentation)
         .pipe(plumber())
         .pipe(compile())
         .pipe(gulp.dest('build'));
+});
+
+gulp.task('compile-master-presentation', function () {
+    return gulp
+        .src(paths.presentation)
+        .pipe(plumber())
+        .pipe(compile({
+            master: true
+        }))
+        .pipe(gulp.dest('build/master'));
 });
 
 gulp.task('compile-stylesheets', function () {
@@ -70,7 +86,7 @@ gulp.task('watch', function () {
     gulp.watch(paths.stylesheets, sync.sync(['compile-stylesheets', 'notify-recompiled']));
     gulp.watch(paths.slides, sync.sync(['compile', 'notify-recompiled']));
     gulp.watch(paths.examples, sync.sync(['compile', 'notify-recompiled']));
-    gulp.watch(paths.presentation, sync.sync(['compile-presentation', 'notify-recompiled']));
+    gulp.watch(paths.presentation, sync.sync(['compile-client-presentation', 'compile-master-presentation', 'notify-recompiled']));
 });
 
 gulp.task('connect', function () {
@@ -81,7 +97,7 @@ gulp.task('connect', function () {
     });
 });
 
-gulp.task('compile', sync.sync(['compile-slides', 'compile-presentation', 'compile-stylesheets']));
+gulp.task('compile', sync.sync(['compile-slides', 'compile-client-presentation', 'compile-master-presentation', 'compile-stylesheets']));
 
 gulp.task('recompile', sync.sync(['clean', 'compile']));
 
