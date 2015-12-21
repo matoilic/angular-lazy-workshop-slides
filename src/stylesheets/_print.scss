@@ -23,6 +23,10 @@
     float: none !important;
   }
 
+  .no-print {
+    display: none !important;
+  }
+
   /* SECTION 2: Remove any elements not needed in print.
      This would include navigation, ads, sidebars, etc. */
   .nestedarrow,
