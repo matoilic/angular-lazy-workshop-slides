@@ -10,7 +10,7 @@ const autoprefixer = require('gulp-autoprefixer');
 const fs = require('fs');
 const path = require('path');
 const compile = require('./lib/gulp-compiler');
-const os = require('os');
+const localIp = require('./lib/local-ip');
 
 const paths = {
     slides: 'src/slides/**/*.hbs',
@@ -20,8 +20,7 @@ const paths = {
 };
 
 const variables = {
-    localAddress: os.networkInterfaces()['en3'][1].address,
-    alternativeLocalAddress: os.networkInterfaces()['en0'][1].address
+    localAddress: localIp()
 };
 
 gulp.task('compile-slides', function () {
